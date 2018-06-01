@@ -76,7 +76,7 @@ void loop() {
       CloseDoor();
       closing = true;
     } else if (brewing && closing && !closed) { //FLOATSWITCH up, MOVING towards CLOSED, and not CLOSED
-      while (!closed) {}
+      //smart way to wait for it to close
     } else if (!brewing && !opening && closed && !brewed) { // FLOATSWITCH down, not MOVING towards OPEN, CLOSED, and not brewed
       opening = true;
       endTime = millis() + 3000;
@@ -96,8 +96,6 @@ void loop() {
         CloseDoor();
       }
     } else {
-      opening = false;
-      closing = false;
       StopDoor();
     }  
   } else {
@@ -134,4 +132,6 @@ void CloseDoor() {
 void StopDoor() {
   digitalWrite(brake, HIGH);
   analogWrite(pwm, 0);
+  closing = false;
+  opening = false;
 }
