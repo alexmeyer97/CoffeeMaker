@@ -75,21 +75,22 @@ void loop()
   //motor movement stuff
   if (!overrideEnabled)
   {
-    if (floatUp && !doorClosed) //closing the door
+    if (floatUp && !doorClosed) //is there water in reservoir? and is the door not yet fully closed?
     {
       CloseDoor();
-    } else if (((!floatUp) && (!doorOpen))) //opening the door
+    } else if ( (!floatUp) && (!doorOpen)) //is coffee done? and is the door not yet fully open?
     {
-       if (!openStarted) 
+       if (!openStarted) //has the opening sequence not yet started?
        {
-          if (doorClosed)
+          if (doorClosed) // only begin opening sequence if the door has already closed fully
           {
-           openStarted = true;
-           endTime = millis()+300000;
+           StopDoor();
+           openStarted = true; //start opening sequence
+           endTime = millis()+3000;
           }
-       } else 
+       } else //has opening sequence started?
        {  
-          if (millis()>endTime)
+          if (millis()>endTime)//have we waited long enough
           {
           OpenDoor();
           }
