@@ -62,7 +62,7 @@ void loop() {
   opened = digitalRead(opens) == LOW;             //OPENSWITCH pressed, door fully open
   overridePush = digitalRead(overrides) == LOW;   //OVERRIDESWITCH pressed, check to toggle override mode
 
-  if (overridePush && (!overidePush2)) {
+  if (overridePush && (!overridePush2)) {
     overrideOn = !overrideOn;
   }
   overridePush2 = overridePush;
@@ -76,7 +76,7 @@ void loop() {
       CloseDoor();
       closing = true;
     } else if (brewing && closing && !closed) { //FLOATSWITCH up, MOVING towards CLOSED, and not CLOSED
-      while (!closed) {} end
+      while (!closed) {}
     } else if (!brewing && !opening && closed && !brewed) { // FLOATSWITCH down, not MOVING towards OPEN, CLOSED, and not brewed
       opening = true;
       endTime = millis() + 3000;
@@ -119,22 +119,19 @@ void loop() {
   
 }
 
-void OpenDoor()
-{
+void OpenDoor() {
   digitalWrite(motor, HIGH);
   digitalWrite(brake, LOW);
   analogWrite(pwm, spd);
 }
 
-void CloseDoor()
-{
+void CloseDoor() {
   digitalWrite(motor, LOW);
   digitalWrite(brake, LOW);
   analogWrite(pwm, spd);
 }
 
-void StopDoor()
-{
+void StopDoor() {
   digitalWrite(brake, HIGH);
   analogWrite(pwm, 0);
 }
